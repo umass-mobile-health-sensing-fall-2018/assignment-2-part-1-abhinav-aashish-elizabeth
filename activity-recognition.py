@@ -15,11 +15,10 @@ from features import extract_features # make sure features.py is in the same dir
 from util import reorient, reset_vars
 
 # TODO: Replace the string with your user ID
-user_id = "YOUR_BADGE_ID"
+user_id = "aashish7k5"
 # TODO: list the class labels that you collected data for in the order of label_index (defined in collect-labelled-data.py)
-class_names = ["sitting", "walking"] #...
+class_names = ["sitting", "walking", "jumping", "running"] #...
 
-count = 0
 
 # Loading the classifier that you saved to disk previously
 with open('classifier.pickle', 'rb') as f:
@@ -41,12 +40,15 @@ def predict(window):
     """
     
     # TODO: extract features over the window of data
+    feature_names, feature_vector = extract_features(window)
     
     # TODO: use classifier.predict(feature_vector) to predict the class label.
     # Make sure your feature vector is passed in the expected format
+    classifier.predict(feature_vector)
     
     # TODO: get the name of your predicted activity from 'class_names' using the returned label.
     # pass the activity name to onActivityDetected()
+    onActivityDetected(feature_names[feature_vector])    
     
     return
     
@@ -121,6 +123,7 @@ try:
             message = receive_socket.recv(1024).strip().decode('ascii')
             json_strings = message.split("\n")
             json_strings[0] = previous_json + json_strings[0]
+            print(json_strings[0])
             for json_string in json_strings:
                 try:
                     data = json.loads(json_string)
@@ -134,7 +137,7 @@ try:
                     x=data['data']['x']
                     y=data['data']['y']
                     z=data['data']['z']
-                    
+                        
                     sensor_data.append(reorient(x,y,z))
                     index+=1
                     # make sure we have exactly window_size data points :

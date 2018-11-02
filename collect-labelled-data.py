@@ -4,15 +4,15 @@ import json
 import numpy as np
 
 # TODO: Replace the string with your app's BadgeID
-user_id = "YOUR_BADGE_ID"
+user_id = "aashish7k5"
 # TODO: Set label_name to the activity you are doing
-label_name = "walking"
+label_name = "running"
 """
 TODO: Set label_index to the activity index, ranging from 0 to (num_of_activities-1) 
 Your classifier will return the index of the activity and you will get the label name
 from this index in activity-recognition.py
 """
-label_index = 0
+label_index = 3
 
 #################   Begin Server Connection Code  ####################
 
